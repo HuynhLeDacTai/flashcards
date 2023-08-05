@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Flashcard from "./pages/Flashcard";
+import MyCourse from "./pages/MyCourse";
+import MyOnlineCourses from "./pages/MyOnlineCourses";
+import MyOnlineExams from "./pages/MyOnlineExams";
+import ActivateCourse from "./pages/ActivateCourse";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route path="/my-course" exact>
+          <MyCourse />
+        </Route>
+        <Route path="/online-course" exact>
+          <MyOnlineCourses />
+        </Route>
+        <Route path="/online-exam" exact>
+          <MyOnlineExams />
+        </Route>
+        <Route path="/flashcards" exact>
+          <Flashcard />
+        </Route>
+        <Route path="/activate-course" exact>
+          <ActivateCourse />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
