@@ -1,0 +1,224 @@
+html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-weight: 400;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    word-break: keep-all;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #1a1a1a;
+    background-color: #fff;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #1a1a1a;
+    background-color: #fff;
+    text-align: left;
+}
+
+:root {
+    --yellow: #f1c40f;
+    --yellowHover: #f39c12;
+    --blue: #35509a;
+    --blueHover: #35509a;
+    --darkBlue: #35509a;
+    --darkBlueHover: #35509a;
+    --green: #00ca65;
+    --greenHover: #00ab55;
+    --orange: #f39c12;
+    --orangeHover: #e67e22;
+    --red: #e55043;
+    --red: #e74c3c;
+    --redHover: #c0392b;
+    --violet: #9b59b6;
+    --violetHover: #8e44ad;
+    --lightGray: #ecf0f1;
+    --lightGray: #eff0f2;
+    --lightGrayHover: #dfdfe1;
+    --gray: #bdc3c7;
+    --grayHover: #95a5a6;
+    --black: #34495e;
+    --blackHover: #2c3e50;
+    --faintGray: #f3f6f9;
+    --faintGreen: #c8f8df;
+    --faintBlue: #e3faff;
+    --faintRed: #f7b7c0;
+    --faintYellow: #f8efbc;
+    --faintOrange: #fedeb4;
+    --wrong: #ec7063;
+    --correct: #2ecc71;
+}
+
+a {
+    color: #35509a;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+ul{
+    list-style: none;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.flashcards-wrapper{
+    padding-top: 60px;
+    position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    margin-top: 0;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    line-height: 1.35;
+}
+
+.h1, h1 {
+    font-size: 2rem;
+}
+
+.h2, h2 {
+    font-size: 1.55rem;
+}
+
+
+
+ol, p, ul {
+    margin-bottom: 0.8rem;
+}
+
+p {
+    clear: both;
+    margin-top: 0;
+}
+
+
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #1a1a1a;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.45;
+    border-radius: 0.35rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #35509a;
+    border-color: #35509a;
+}
+
+// .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+//     margin-bottom: 0.5rem;
+//     font-weight: 600;
+//     line-height: 1.2;
+//     color: #1a1a1a;
+// }
+
+.content-wrapper {
+    position: relative;
+    flex: 1;
+    min-height: 100%;
+    min-height: 100vh;
+    min-height: calc(100vh - 430px);
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    width: 100%;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.show{
+    display: block !important;
+}
+
+.form-group{
+    margin-bottom: 1rem;
+}
+
+button, input {
+    overflow: visible;
+}
+
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+button{
+    cursor: pointer;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.form-control{
+    display: block;
+    width: 100%;
+    height: calc(1.45em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #677788;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdc5d1;
+    border-radius: 0.35rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-control:focus {
+    color: #677788;
+    background-color: #fff;
+    border-color: #7c93d2;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(53,80,154,.25);
+}
