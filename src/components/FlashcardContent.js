@@ -7,7 +7,22 @@ import { useEffect } from "react";
 const FlashcardContent = () => {
   const [activePage, setActivePage] = useState(1);
   const [page, setPage] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [titleFlashcard, setTitleFlashcard] = useState("");
+  const [checkTitle, setCheckTitle] = useState(false);
   const maxPage = 3;
+
+  const showModal = () => {
+    document.body.classList.add("no-scroll");
+    setModal(true);
+  };
+
+  const submitModal = (event) => {
+    if (titleFlashcard === "") {
+      event.preventDefault();
+      setCheckTitle(true);
+    }
+  };
 
   useEffect(() => {
     var pageArray = [];
@@ -19,7 +34,6 @@ const FlashcardContent = () => {
 
   return (
     <>
-      {" "}
       <div className="content-wrapper">
         {console.log(page)}
         <div className="flashcard-container container">
@@ -46,8 +60,13 @@ const FlashcardContent = () => {
               <h2>List từ đã tạo:</h2>
 
               <div className="flashcard-list row">
-                <div className="add-new card-item">
-                  <a href="/add-new">
+                <div
+                  className="add-new card-item"
+                  onClick={() => {
+                    showModal();
+                  }}
+                >
+                  <a href="/#" onClick={(e) => e.preventDefault()}>
                     <div className="add-btn card-item-content">
                       <span className="fa-solid fa-plus"></span>
                       Tạo list từ
@@ -57,7 +76,7 @@ const FlashcardContent = () => {
 
                 <div className="flashcard-item card-item">
                   <div className="flashcard-item-container card-item-content">
-                    <Link to="/flashcard/1">
+                    <Link to="/flashcard/lists/1">
                       <div className="flashcard-item-content ">
                         <div className="item-title">Flashcard Beginner</div>
                         <div className="item-content">
@@ -192,6 +211,7 @@ const FlashcardContent = () => {
                   {page.map((element, index) => {
                     return (
                       <span
+                        key={index}
                         className={
                           element === activePage
                             ? "page-item active"
@@ -201,7 +221,13 @@ const FlashcardContent = () => {
                           setActivePage(element);
                         }}
                       >
-                        <a className="page-link">{element}</a>
+                        <a
+                          className="page-link"
+                          href="/#"
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          {element}
+                        </a>
                       </span>
                     );
                   })}
@@ -211,10 +237,16 @@ const FlashcardContent = () => {
           </div>
         </div>
       </div>
-      <div className="modal show">
+      <div className={modal ? "modal show" : "modal"}>
         <div className="modal-dialog">
           <div className="modal-content">
-            <button className="close-modal" type="button">
+            <button
+              className="close-modal"
+              type="button"
+              onClick={() => {
+                setModal(false);
+              }}
+            >
               <span>{`×`}</span>
             </button>
             <div className="modal-body">
@@ -226,8 +258,18 @@ const FlashcardContent = () => {
                     <div>
                       <input
                         type="text"
-                        className="modal-text-input form-control"
+                        className={
+                          checkTitle
+                            ? "modal-text-input form-control blank-noti"
+                            : "modal-text-input form-control"
+                        }
+                        onChange={(event) => {
+                          setTitleFlashcard(event.target.value);
+                        }}
                       ></input>
+                      <p style={{ display: checkTitle ? "block" : "none" }}>
+                        *Tiêu đề không được trống!!
+                      </p>
                     </div>
                   </div>
                   <div className="form-group">
@@ -235,7 +277,13 @@ const FlashcardContent = () => {
                     <textarea className="flashcard-modal-desc form-control"></textarea>
                   </div>
                   <div className="form-group save-btn-modal">
-                    <button type="submit" className="btn btn-primary">
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      onClick={(event) => {
+                        submitModal(event);
+                      }}
+                    >
                       Lưu
                     </button>
                   </div>
@@ -245,6 +293,7 @@ const FlashcardContent = () => {
           </div>
         </div>
       </div>
+      <div id="overlay" style={{ display: modal ? "block" : "none" }}></div>
     </>
   );
 };

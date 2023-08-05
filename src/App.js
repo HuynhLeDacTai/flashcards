@@ -6,6 +6,7 @@ import MyCourse from "./pages/MyCourse";
 import MyOnlineCourses from "./pages/MyOnlineCourses";
 import MyOnlineExams from "./pages/MyOnlineExams";
 import ActivateCourse from "./pages/ActivateCourse";
+import DetailFlashcard from "./pages/DetailFlashcard";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
         </Route>
         <Route path="/flashcards" exact>
           <Flashcard />
+        </Route>
+        <Route path="/flashcard/lists/1" exact>
+          <DetailFlashcard />
         </Route>
         <Route path="/activate-course" exact>
           <ActivateCourse />

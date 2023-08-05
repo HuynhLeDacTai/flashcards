@@ -100,6 +100,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #1a1a1a;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     line-height: 1.35;
 }
 
@@ -111,7 +118,9 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.55rem;
 }
 
-
+.h3, h3 {
+    font-size: 1.3rem;
+}
 
 ol, p, ul {
     margin-bottom: 0.8rem;
@@ -144,6 +153,17 @@ p {
     color: #fff;
     background-color: #35509a;
     border-color: #35509a;
+}
+
+.btn-sky {
+    color: #1e2022;
+    background-color: #e8f2ff;
+    border-color: #35509a;
+}
+
+.btn-block{
+    display: block;
+    width: 100%;
 }
 
 // .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
@@ -221,4 +241,83 @@ label {
     border-color: #7c93d2;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(53,80,154,.25);
+}
+
+textarea {
+    overflow: auto;
+    resize: vertical;
+}
+
+.site-wrapper {
+    position: relative;
+    min-height: 100vh;
+}
+
+.site-content-wrapper {
+    padding-top: 60px;
+    position: relative;
+}
+
+.contentblock{  
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.65rem;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 0 0 rgba(143,156,173,.2);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+}
+
+
+.pagination{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.35rem;
+    justify-content: center;
+
+    .page-link{
+        position: relative;
+        display: block;
+        padding: 0.5rem 0.75rem;
+        margin-left: -1px;
+        line-height: 1.25;
+        color: #35509a;
+        background-color: #fff;
+        border: 1px solid #e7eaf3;
+    }
+
+    .page-item{
+        margin: 0 12px;
+        
+        .page-link{
+            border-radius: 0.35rem;
+        }
+    }
+
+
+    .page-item:first-child .page-link {
+        margin-left: 0;
+        border-top-left-radius: 0.35rem;
+        border-bottom-left-radius: 0.35rem;
+    }
+
+    .page-item:last-child .page-link {
+        border-top-right-radius: 0.35rem;
+        border-bottom-right-radius: 0.35rem;
+    }
+
+    .page-item.active .page-link {
+        z-index: 3;
+        color: #fff;
+        background-color: #35509a;
+        border-color: #35509a;
+    }
 }

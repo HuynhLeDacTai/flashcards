@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className="nav-container">
         <div className="nav-content">
           <span className="nav-logo">
-            <Link to="/" className="navbar-logo">
+            <Link to="/flashcards" className="navbar-logo">
               <img src="/images/logo_full_sm.png" alt="logo"></img>
             </Link>
           </span>
