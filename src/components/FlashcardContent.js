@@ -3,6 +3,8 @@ import "../styles/FlashcardContent.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useState } from "react";
 import { useEffect } from "react";
+import { dataListFlashcard } from "../mockData/dataFlashcard";
+import FlashcardItem from "./FlashcardItem";
 
 const FlashcardContent = () => {
   const [activePage, setActivePage] = useState(1);
@@ -11,6 +13,7 @@ const FlashcardContent = () => {
   const [titleFlashcard, setTitleFlashcard] = useState("");
   const [checkTitle, setCheckTitle] = useState(false);
   const maxPage = 3;
+  const listFlashCard = dataListFlashcard;
 
   const showModal = () => {
     document.body.classList.add("no-scroll");
@@ -73,137 +76,17 @@ const FlashcardContent = () => {
                     </div>
                   </a>
                 </div>
-
-                <div className="flashcard-item card-item">
-                  <div className="flashcard-item-container card-item-content">
-                    <Link to="/flashcard/lists/1">
-                      <div className="flashcard-item-content ">
-                        <div className="item-title">Flashcard Beginner</div>
-                        <div className="item-content">
-                          <div>
-                            <span className="far fa-clone"></span>0 từ
-                          </div>
-                          <div className="item-description">
-                            <i>description</i>
-                          </div>
-                        </div>
-                        <div className="item-user">
-                          <span className="item-user-avatar">D</span>
-                          <span className="item-user-username">DacTai</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="flashcard-item card-item">
-                  <div className="flashcard-item-container card-item-content">
-                    <Link to="/flashcard/2">
-                      <div className="flashcard-item-content">
-                        <div className="item-title">Flashcard Advanced</div>
-                        <div className="item-content">
-                          <div>
-                            <span className="far fa-clone"></span>0 từ
-                          </div>
-                          <div className="item-description">
-                            <i>description</i>
-                          </div>
-                        </div>
-                        <div className="item-user">
-                          <span className="item-user-avatar">D</span>
-                          <span className="item-user-username">DacTai</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="flashcard-item card-item">
-                  <div className="flashcard-item-container card-item-content">
-                    <Link to="/flashcard/2">
-                      <div className="flashcard-item-content">
-                        <div className="item-title">Flashcard Advanced</div>
-                        <div className="item-content">
-                          <div>
-                            <span className="far fa-clone"></span>0 từ
-                          </div>
-                          <div className="item-description">
-                            <i>description</i>
-                          </div>
-                        </div>
-                        <div className="item-user">
-                          <span className="item-user-avatar">D</span>
-                          <span className="item-user-username">DacTai</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="flashcard-item card-item">
-                  <div className="flashcard-item-container card-item-content">
-                    <Link to="/flashcard/2">
-                      <div className="flashcard-item-content">
-                        <div className="item-title">Flashcard Advanced</div>
-                        <div className="item-content">
-                          <div>
-                            <span className="far fa-clone"></span>0 từ
-                          </div>
-                          <div className="item-description">
-                            <i>description</i>
-                          </div>
-                        </div>
-                        <div className="item-user">
-                          <span className="item-user-avatar">D</span>
-                          <span className="item-user-username">DacTai</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="flashcard-item card-item">
-                  <div className="flashcard-item-container card-item-content">
-                    <Link to="/flashcard/2">
-                      <div className="flashcard-item-content">
-                        <div className="item-content">
-                          <div>
-                            <span className="far fa-clone"></span>0 từ
-                          </div>
-                          <div className="item-description">
-                            <i>description</i>
-                          </div>
-                        </div>
-                        <div className="item-user">
-                          <span className="item-user-avatar">D</span>
-                          <span className="item-user-username">DacTai</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="flashcard-item card-item">
-                  <div className="flashcard-item-container card-item-content">
-                    <Link to="/flashcard/2">
-                      <div className="flashcard-item-content">
-                        <div className="item-title">Flashcard Advanced</div>
-                        <div className="item-content">
-                          <div>
-                            <span className="far fa-clone"></span>0 từ
-                          </div>
-                          <div className="item-description">
-                            <i>description</i>
-                          </div>
-                        </div>
-                        <div className="item-user">
-                          <span className="item-user-avatar">D</span>
-                          <span className="item-user-username">DacTai</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
+                {listFlashCard.map((item) => {
+                  return (
+                    <>
+                      <FlashcardItem
+                        name={item.name}
+                        desc={item.desc}
+                        user={item.user}
+                      />
+                    </>
+                  );
+                })}
               </div>
               <br />
               <nav className="">

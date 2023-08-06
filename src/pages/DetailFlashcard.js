@@ -2,11 +2,15 @@ import React from "react";
 import "../styles/DetailFlashcard.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
+import CardItem from "../components/CardItem";
+import { dataCards } from "../mockData/dataFlashcard";
 
 const DetailFlashcard = () => {
   const [activePage, setActivePage] = useState(1);
   const [page, setPage] = useState([]);
   const maxPage = 3;
+
+  const listCards = dataCards;
 
   useEffect(() => {
     var pageArray = [];
@@ -63,64 +67,33 @@ const DetailFlashcard = () => {
             <br />
             <div>
               <Link to="">
-                <span className="fa-solid fa-shuffle"></span>Xem ngẫu nhiên
+                <span
+                  className="fa-solid fa-shuffle"
+                  style={{ marginRight: "4px" }}
+                ></span>
+                Xem ngẫu nhiên
               </Link>
               <span
                 className="text-danger"
                 data-confirm_text="Bạn có chắc chắn muốn dừng việc học list từ này không? Mọi thông tin luyện tập sẽ bị xóa."
               >
-                <span className="fa-solid fa-calendar-xmark"></span>Dừng học
-                list từ này
+                <span
+                  className="fa-solid fa-calendar-xmark"
+                  style={{ marginRight: "4px" }}
+                ></span>
+                Dừng học list từ này
               </span>
             </div>
             <br />
             <p style={{ margin: "0" }}>List này có 2 từ</p>
-            <br />
-            <div className="contentblock">
-              <div className="row">
-                <div className="card-content">
-                  <h2 className="h3">
-                    Có
-                    <span className="audio-player">
-                      <span className="audio-player-btn">
-                        <span className="fa-solid fa-volume-high"></span>
-                      </span>
-                    </span>
-                    <span style={{ fontSize: "1rem", fontWeight: "400" }}>
-                      UK
-                    </span>
-                    <span className="audio-player">
-                      <span className="audio-player-btn">
-                        <span className="fa-solid fa-volume-high"></span>
-                      </span>
-                    </span>
-                    <span style={{ fontSize: "1rem", fontWeight: "400" }}>
-                      US
-                    </span>
-                    <a
-                      style={{
-                        fontSize: "1rem",
-                        fontWeight: "400",
-                        marginLeft: "0.25rem",
-                      }}
-                    >
-                      <i class="fa-regular fa-pen-to-square"></i>
-                    </a>
-                  </h2>
-                  <div style={{ fontWeight: "500" }}>Định nghĩa</div>
-                  <div
-                    style={{ whiteSpace: "pre-line", marginBottom: "0.5rem" }}
-                  >
-                    Nghĩa của từ đó
-                  </div>
-                </div>
-              </div>
-              <div className="delete-content">
-                <a>
-                  <i class="fa-solid fa-trash"></i>
-                </a>
-              </div>
-            </div>
+            {listCards.map((item, index) => {
+              return (
+                <>
+                  <br />
+                  <CardItem name={item.name} defination={item.defination} />
+                </>
+              );
+            })}
             <br />
             <nav className="">
               <div className="pagination">
