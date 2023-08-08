@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/FlashcardContent.scss";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useState } from "react";
 import { useEffect } from "react";
 import { dataListFlashcard } from "../mockData/dataFlashcard";
@@ -38,7 +37,6 @@ const FlashcardContent = () => {
   return (
     <>
       <div className="content-wrapper">
-        {console.log(page)}
         <div className="flashcard-container container">
           <div className="alert alert-success">
             <span className="fa-solid fa-circle-exclamation"></span>

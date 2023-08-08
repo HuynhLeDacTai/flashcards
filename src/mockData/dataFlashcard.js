@@ -32,7 +32,7 @@ export const dataCards = [
 
 export const dataListFlashcard = [
   {
-    name: "Flashcard 1",
+    name: "한시간",
     desc: "Description 1",
     user: "John",
   },

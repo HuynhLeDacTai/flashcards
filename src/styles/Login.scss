@@ -1,0 +1,106 @@
+.login-container{
+    width: 100%;
+    max-width: 1170px;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+
+    .auth-box{
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+
+        p{
+            a:hover{
+                color: #213261;
+            }
+        }
+
+        .social-login{
+            display: flex;
+
+            .social-block{
+                flex: 0 0 50% !important;
+                max-width: 50% !important;
+            }
+        }
+
+        .row{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            margin-right: -0.75rem;
+            margin-left: -0.75rem;
+
+            h3{
+                text-align: center;
+            }
+            .login-block{
+                flex: 0 0 100%;
+                max-width: 100%;
+                position: relative;
+                width: 100%;
+                padding-right: 0.75rem;
+                padding-left: 0.75rem;
+
+                .f-login-btn{
+                    color: #3b5998;
+                    background: #fff;
+                    cursor: pointer;
+                    border: 1px solid #e0e0e0;
+                    text-decoration: none;
+                    font-weight: 500;
+                }
+                .f-login-btn:hover{
+                    color: #fff;
+                    background: #3b5998;
+                    border-color: #3b5998;
+                }
+
+                .g-login-btn{
+                    color: #db4a39;
+                    background: #fff;
+                    cursor: pointer;
+                    border: 1px solid #e0e0e0;
+                    text-decoration: none;
+                    font-weight: 500;
+                }
+
+                .g-login-btn:hover{
+                    color: #fff;
+                    background: #db4a39;
+                    border-color: #db4a39;
+                }
+
+
+            }
+        }
+    }
+
+    .remember-checkbox{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 10px;
+        p{
+            font-weight: 500;
+            margin: 0 4px;
+        }
+    }
+
+    .login-btn{
+        color: #000;
+        background: #fff;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        border: 1px solid #e0e0e0;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .login-btn:hover{
+        color: #fff;
+        background: #000;
+        border-color: #000;
+    }
+}

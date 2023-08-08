@@ -172,6 +172,12 @@
             border: 0;
             cursor: pointer;
         }
+
+        .dropdown-item:hover{
+            color: #121314;
+            text-decoration: none;
+            background-color: #f8fafd;
+        }
     }
 }
 

@@ -6,7 +6,7 @@ const FlashcardItem = (props) => {
     <>
       <div className="flashcard-item card-item">
         <div className="flashcard-item-container card-item-content">
-          <Link to="/flashcard/2">
+          <Link to="/flashcard/lists/1">
             <div className="flashcard-item-content">
               <div className="item-title">{props.name}</div>
               <div className="item-content">
