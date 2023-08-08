@@ -20,17 +20,17 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "user")
 
-//b5a45db5-a31e-48eb-80e0-58347819a1ea
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column
+    @Column(name = "name")
     private String name;
-    @Column
+    @Column(name = "email")
     private String email;
-    @Column
+    @Column(name = "password")
     private String password;
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -74,6 +74,10 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public String getName() {
+        return name;
     }
 }
 

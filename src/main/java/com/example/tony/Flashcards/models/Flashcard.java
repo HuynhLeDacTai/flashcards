@@ -20,12 +20,12 @@ public class Flashcard {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "description")
     private String description;
 
-    @Column
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userId;
 }

@@ -18,12 +18,12 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "defination")
     private String defination;
 
-    @Column
-    private Long flashcard_id;
+    @Column(name = "flashcard_id")
+    private Long flashcardId;
 }
