@@ -8,4 +8,6 @@ import java.util.Optional;
 @Service
 public interface IUserService {
     Long getIdByUsername(String username);
+
+    Optional<User> getUserByUsername(String username);
 }

@@ -23,4 +23,9 @@ public class UserServiceImpl implements IUserService {
             throw new EntityNotFoundException("User not found with email: " + username);
         }
     }
+
+    @Override
+    public Optional<User> getUserByUsername(String username) {
+        return _userRepository.findByEmail(username);
+    }
 }

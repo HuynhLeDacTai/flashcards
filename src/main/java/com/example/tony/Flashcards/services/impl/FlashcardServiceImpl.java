@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FlashcardServiceImpl implements IFlashcardService {
@@ -17,6 +18,11 @@ public class FlashcardServiceImpl implements IFlashcardService {
     @Override
     public List<Flashcard> getAllFlashcardByUserId(Long id) {
         return _flashcardRepository.findAllByUserId(id);
+    }
+
+    @Override
+    public Optional<Flashcard> getFlashcardById(Long id) {
+        return _flashcardRepository.findById(id);
     }
 
 }

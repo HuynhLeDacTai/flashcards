@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Entity
 @Data
 @Builder
@@ -21,7 +19,7 @@ public class Flashcard {
     private Long id;
 
     @Column(name = "name")
-    private String name;
+    private String title;
 
     @Column(name = "description")
     private String description;

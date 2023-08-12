@@ -37,4 +37,5 @@ public class Token {
 
     @Column(name = "user_id")
     private Long userId;
+    
 }

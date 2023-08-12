@@ -9,13 +9,18 @@ import com.example.tony.Flashcards.models.TokenType;
 import com.example.tony.Flashcards.models.User;
 import com.example.tony.Flashcards.repositories.TokenRepository;
 import com.example.tony.Flashcards.repositories.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -32,7 +37,7 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) {
         Optional<User> existingUser = userRepository.findByEmail(request.getEmail());
         if (existingUser.isPresent()) {
-            return AuthenticationResponse.builder().token("").message("Register failed").build();
+            return AuthenticationResponse.builder().accessToken("").build();
         }
         User newUser = User.builder()
                 .name(request.getName())
@@ -43,8 +48,9 @@ public class AuthenticationService {
         var savedUser = userRepository.save(newUser);
         userRepository.save(newUser);
         String jwtToken = jwtService.generateToken(newUser);
+        String refreshToken = jwtService.generateRefreshToken(newUser);
         saveUserToken(savedUser, jwtToken);
-        return AuthenticationResponse.builder().token(jwtToken).message("Register successfully").build();
+        return AuthenticationResponse.builder().accessToken(jwtToken).refreshToken(refreshToken).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -56,9 +62,10 @@ public class AuthenticationService {
         );
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
         String jwtToken = jwtService.generateToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
-        return AuthenticationResponse.builder().token(jwtToken).message("Login successfully").build();
+        return AuthenticationResponse.builder().accessToken(jwtToken).refreshToken(refreshToken).build();
     }
 
     private void saveUserToken(User user, String jwtToken) {
@@ -82,4 +89,33 @@ public class AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
+
+    public AuthenticationResponse refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        final String refreshToken;
+        final String userEmail;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return null;
+        }
+        refreshToken = authHeader.substring(7);
+        userEmail = jwtService.extractEmail(refreshToken);
+        if (userEmail != null) {
+            var user = userRepository.findByEmail(userEmail)
+                    .orElseThrow();
+            if (jwtService.isTokenValid(refreshToken, user)) {
+                var accessToken = jwtService.generateToken(user);
+                revokeAllUserTokens(user);
+                saveUserToken(user, accessToken);
+                return AuthenticationResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+            }
+        }
+        return null;
+    }
 }
+

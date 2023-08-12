@@ -26,4 +26,5 @@ public class Card {
 
     @Column(name = "flashcard_id")
     private Long flashcardId;
+
 }
