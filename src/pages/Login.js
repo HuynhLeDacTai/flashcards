@@ -4,6 +4,7 @@ import "../styles/Login.scss";
 import { validateEmail, validateInput } from "../utils/validate";
 import { useDispatch } from "react-redux";
 import { authenticate } from "../api/auth";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ const Login = () => {
   const [checkEmail, setCheckEmail] = useState(false);
   const [checkPassword, setCheckPassword] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const submitFormLogin = async () => {
     setCheckEmail(validateEmail(email));
@@ -22,6 +24,7 @@ const Login = () => {
       };
       try {
         await authenticate(data, dispatch);
+        history.push("/flashcards");
       } catch (error) {
         console.error("Error registering user:", error);
       }
@@ -31,6 +34,9 @@ const Login = () => {
     <div className="site-content-wrapper">
       <div className="content-wrapper">
         <div>
+          <h3 style={{ textAlign: "center", margin: "12px 0 0" }}>
+            Bạn phải đăng nhập trước
+          </h3>
           <div className="container login-container">
             <div className="contentblock auth-box">
               <p>

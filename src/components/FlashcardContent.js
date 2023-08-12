@@ -2,8 +2,8 @@ import React from "react";
 import "../styles/FlashcardContent.scss";
 import { useState } from "react";
 import { useEffect } from "react";
-import { dataListFlashcard } from "../mockData/dataFlashcard";
 import FlashcardItem from "./FlashcardItem";
+import { getAllFlashcardsByUser } from "../api/flashcardApi";
 
 const FlashcardContent = () => {
   const [activePage, setActivePage] = useState(1);
@@ -11,8 +11,8 @@ const FlashcardContent = () => {
   const [modal, setModal] = useState(false);
   const [titleFlashcard, setTitleFlashcard] = useState("");
   const [checkTitle, setCheckTitle] = useState(false);
+  const [dataFlashcards, setDataFlashcards] = useState([]);
   const maxPage = 3;
-  const listFlashCard = dataListFlashcard;
 
   const showModal = () => {
     document.body.classList.add("no-scroll");
@@ -32,6 +32,18 @@ const FlashcardContent = () => {
       pageArray = [...pageArray, i];
     }
     setPage(pageArray);
+
+    const getDataFlashcard = async () => {
+      await getAllFlashcardsByUser()
+        .then((response) => {
+          setDataFlashcards(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    getDataFlashcard();
   }, []);
 
   return (
@@ -74,13 +86,16 @@ const FlashcardContent = () => {
                     </div>
                   </a>
                 </div>
-                {listFlashCard.map((item) => {
+                {dataFlashcards.map((item) => {
                   return (
                     <>
                       <FlashcardItem
-                        name={item.name}
-                        desc={item.desc}
-                        user={item.user}
+                        key={item.id}
+                        id={item.id}
+                        title={item.title}
+                        desc={item.description}
+                        user={item.userName}
+                        amount={item.amount}
                       />
                     </>
                   );

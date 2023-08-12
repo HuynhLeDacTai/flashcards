@@ -14,7 +14,7 @@ import ActivateCourse from "./pages/ActivateCourse";
 import DetailFlashcard from "./pages/DetailFlashcard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import { decodeJwtToken, useIsLogin } from "./utils/apiUtils";
+import { decodeJwtToken, getLocalToken, useIsLogin } from "./utils/apiUtils";
 import { setIsLogin } from "./store/actions/authActions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -22,47 +22,69 @@ import { useEffect } from "react";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      dispatch(
-        setIsLogin(
-          localStorage.getItem("token"),
-          decodeJwtToken(localStorage.getItem("token"))
-        )
-      );
+    const access_token = localStorage.getItem("access_token");
+    if (access_token) {
+      dispatch(setIsLogin(access_token, decodeJwtToken(access_token)));
     }
-  }, [dispatch]);
+  }, []);
   const isLogin = useIsLogin();
   return (
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route path="/login" exact>
-          {isLogin ? <Redirect to="/flashcards" /> : <Login />}
-        </Route>
-        <Route path="/sign-in" exact>
-          {isLogin ? <Redirect to="/flashcards" /> : <Signup />}
-        </Route>
-        <Route path="/my-course" exact>
-          {isLogin ? <MyCourse /> : <Redirect to="/login" />}
-        </Route>
-        <Route path="/online-course" exact>
-          {isLogin ? <MyOnlineCourses /> : <Redirect to="/login" />}
-        </Route>
-        <Route path="/online-exam" exact>
-          {isLogin ? <MyOnlineExams /> : <Redirect to="/login" />}
-        </Route>
-        <Route path="/flashcards" exact>
-          {isLogin ? <Flashcard /> : <Redirect to="/login" />}
-        </Route>
-        <Route path="/flashcard/lists/1" exact>
-          {isLogin ? <DetailFlashcard /> : <Redirect to="/login" />}
-        </Route>
-        <Route path="/activate-course" exact>
-          {isLogin ? <ActivateCourse /> : <Redirect to="/login" />}
-        </Route>
-        <Redirect from="/" to="/login" />
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path="/my-course" exact>
+            {getLocalToken() !== "" || isLogin ? (
+              <MyCourse />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/online-course" exact>
+            {getLocalToken() !== "" || isLogin ? (
+              <MyOnlineCourses />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/online-exam" exact>
+            {getLocalToken() !== "" || isLogin ? (
+              <MyOnlineExams />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/flashcards" exact>
+            {getLocalToken() !== "" || isLogin ? (
+              <Flashcard />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/flashcard/lists/:id" exact>
+            {getLocalToken() !== "" || isLogin ? (
+              <DetailFlashcard />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/activate-course" exact>
+            {getLocalToken() !== "" || isLogin ? (
+              <ActivateCourse />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/login" exact>
+            <Login />
+          </Route>
+          <Route path="/sign-in" exact>
+            <Signup />
+          </Route>
+          <Redirect from="/" to="/login" />
+        </Switch>
+      </Router>
+    </>
   );
 }
 

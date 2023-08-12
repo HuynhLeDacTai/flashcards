@@ -3,22 +3,37 @@ import "../styles/DetailFlashcard.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import CardItem from "../components/CardItem";
-import { dataCards } from "../mockData/dataFlashcard";
+import { useAuthToken } from "../utils/apiUtils";
+import { useParams } from "react-router-dom/cjs/react-router-dom";
+import { getCardDetail } from "../api/flashcardApi";
 
 const DetailFlashcard = () => {
   const [activePage, setActivePage] = useState(1);
   const [page, setPage] = useState([]);
+  const [dataCards, setDataCards] = useState([]);
   const maxPage = 3;
-
-  const listCards = dataCards;
-
+  const { id } = useParams();
+  const storedFlashcard = localStorage.getItem("currentFlashcard");
+  const parsedFlashcard = JSON.parse(storedFlashcard);
   useEffect(() => {
     var pageArray = [];
     for (let i = 1; i <= maxPage; i++) {
       pageArray = [...pageArray, i];
     }
     setPage(pageArray);
+
+    const getDataCardDetail = async (id) => {
+      await getCardDetail(id)
+        .then((response) => {
+          setDataCards(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    getDataCardDetail(id);
   }, []);
+
   return (
     <div className="site-wrapper">
       <div className="site-content-wrapper">
@@ -53,7 +68,7 @@ const DetailFlashcard = () => {
               </a>
             </h1>
             <p>
-              <i>Name of flashcard</i>
+              <i>{parsedFlashcard.title}</i>
             </p>
           </div>
         </div>
@@ -85,8 +100,10 @@ const DetailFlashcard = () => {
               </span>
             </div>
             <br />
-            <p style={{ margin: "0" }}>List này có 2 từ</p>
-            {listCards.map((item, index) => {
+            <p style={{ margin: "0" }}>
+              List này có {parsedFlashcard.amount} từ
+            </p>
+            {dataCards.map((item, index) => {
               return (
                 <>
                   <br />

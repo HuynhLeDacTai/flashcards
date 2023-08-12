@@ -28,7 +28,7 @@ const CardItem = (props) => {
                   marginLeft: "0.25rem",
                 }}
               >
-                <i class="fa-regular fa-pen-to-square"></i>
+                <i className="fa-regular fa-pen-to-square"></i>
               </a>
             </h2>
             <div style={{ fontWeight: "500" }}>Định nghĩa</div>

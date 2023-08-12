@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "../styles/Login.scss";
 import { useDispatch } from "react-redux";
 import { validateEmail, validateInput } from "../utils/validate";
@@ -13,6 +13,7 @@ const Signup = () => {
   const [checkPassword, setCheckPassword] = useState(false);
   const [checkName, setCheckName] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const submitFormLSignup = async () => {
     setCheckEmail(validateEmail(email));
@@ -24,8 +25,10 @@ const Signup = () => {
         email: email,
         password: password,
       };
-      await register(data, dispatch);
+
       try {
+        await register(data, dispatch);
+        history.push("/flashcards");
       } catch (error) {
         console.error("Error registering user:", error);
       }
