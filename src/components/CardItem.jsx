@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/DetailFlashcard.scss";
 
 const CardItem = (props) => {
+  const { deleteCard, editCard } = props;
   return (
     <>
       <div className="contentblock">
@@ -27,6 +28,11 @@ const CardItem = (props) => {
                   fontWeight: "400",
                   marginLeft: "0.25rem",
                 }}
+                href="/#"
+                onClick={(event) => {
+                  event.preventDefault();
+                  editCard(event, props.id);
+                }}
               >
                 <i className="fa-regular fa-pen-to-square"></i>
               </a>
@@ -38,8 +44,14 @@ const CardItem = (props) => {
           </div>
         </div>
         <div className="delete-content">
-          <a>
-            <i class="fa-solid fa-trash"></i>
+          <a
+            href="/#"
+            onClick={(event) => {
+              event.preventDefault();
+              deleteCard(event, props.id);
+            }}
+          >
+            <i className="fa-solid fa-trash"></i>
           </a>
         </div>
       </div>

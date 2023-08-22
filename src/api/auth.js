@@ -57,7 +57,6 @@ export const authenticate = async (user, dispatch) => {
 
 export const logout = async (dispatch) => {
   const access_token = getLocalToken();
-  // auth.defaults.headers["Authorization"] = `Bearer ${token}`;
   out.interceptors.request.use((config) => {
     if (access_token) {
       config.headers["Authorization"] = `Bearer ${access_token}`;

@@ -3,40 +3,30 @@ import "../styles/FlashcardContent.scss";
 import { useState } from "react";
 import { useEffect } from "react";
 import FlashcardItem from "./FlashcardItem";
-import { getAllFlashcardsByUser } from "../api/flashcardApi";
+import { addFlashcard, getAllFlashcardsByUser } from "../api/flashcardApi";
+import { useUserInfo } from "../utils/apiUtils";
+import { generateArray } from "../utils/functionUtils";
+import Pagination from "./Pagination";
 
 const FlashcardContent = () => {
   const [activePage, setActivePage] = useState(1);
   const [page, setPage] = useState([]);
+  const [totalPage, setTotalPage] = useState();
   const [modal, setModal] = useState(false);
   const [titleFlashcard, setTitleFlashcard] = useState("");
+  const [descFlashcard, setDescFlashcard] = useState("");
   const [checkTitle, setCheckTitle] = useState(false);
   const [dataFlashcards, setDataFlashcards] = useState([]);
-  const maxPage = 3;
-
-  const showModal = () => {
-    document.body.classList.add("no-scroll");
-    setModal(true);
-  };
-
-  const submitModal = (event) => {
-    if (titleFlashcard === "") {
-      event.preventDefault();
-      setCheckTitle(true);
-    }
-  };
+  const userId = useUserInfo().id;
+  const userName = useUserInfo().name;
 
   useEffect(() => {
-    var pageArray = [];
-    for (let i = 1; i <= maxPage; i++) {
-      pageArray = [...pageArray, i];
-    }
-    setPage(pageArray);
-
     const getDataFlashcard = async () => {
-      await getAllFlashcardsByUser()
+      await getAllFlashcardsByUser(activePage)
         .then((response) => {
-          setDataFlashcards(response.data);
+          setDataFlashcards(response.data.data);
+          setTotalPage(response.data.totalPage);
+          setPage(generateArray(response.data.totalPage));
         })
         .catch((error) => {
           console.error(error);
@@ -44,10 +34,61 @@ const FlashcardContent = () => {
     };
 
     getDataFlashcard();
-  }, []);
+  }, [activePage]);
 
+  const showModal = () => {
+    document.body.classList.add("no-scroll");
+    setModal(true);
+  };
+
+  const submitModal = async (event) => {
+    event.preventDefault();
+    if (titleFlashcard === "") {
+      setCheckTitle(true);
+      return;
+    }
+    const newFlashcard = {
+      title: titleFlashcard.trim(),
+      description: descFlashcard.trim(),
+      userId: userId,
+      amount: 0,
+    };
+
+    const response = await addFlashcard(newFlashcard);
+    if (dataFlashcards.length < 9) {
+      setDataFlashcards([
+        ...dataFlashcards,
+        {
+          id: response.data.id,
+          ...newFlashcard,
+        },
+      ]);
+    } else {
+      setTotalPage(totalPage + 1);
+      setPage(generateArray(totalPage + 1));
+    }
+    setModal(false);
+    setTitleFlashcard("");
+    setDescFlashcard("");
+  };
+
+  const changePage = async (event, page) => {
+    event.preventDefault();
+    setActivePage(page);
+  };
+
+  const nextPage = async (event) => {
+    event.preventDefault();
+    setActivePage(activePage + 1);
+  };
+
+  const backPage = async (event) => {
+    event.preventDefault();
+    setActivePage(activePage - 1);
+  };
   return (
     <>
+      {modal === false && document.body.classList.remove("no-scroll")}
       <div className="content-wrapper">
         <div className="flashcard-container container">
           <div className="alert alert-success">
@@ -94,7 +135,7 @@ const FlashcardContent = () => {
                         id={item.id}
                         title={item.title}
                         desc={item.description}
-                        user={item.userName}
+                        user={userName}
                         amount={item.amount}
                       />
                     </>
@@ -102,38 +143,18 @@ const FlashcardContent = () => {
                 })}
               </div>
               <br />
-              <nav className="">
-                <div className="pagination">
-                  {page.map((element, index) => {
-                    return (
-                      <span
-                        key={index}
-                        className={
-                          element === activePage
-                            ? "page-item active"
-                            : "page-item"
-                        }
-                        onClick={(event) => {
-                          setActivePage(element);
-                        }}
-                      >
-                        <a
-                          className="page-link"
-                          href="/#"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          {element}
-                        </a>
-                      </span>
-                    );
-                  })}
-                </div>
-              </nav>
+              <Pagination
+                activePage={activePage}
+                totalPage={totalPage}
+                backPage={backPage}
+                changePage={changePage}
+                nextPage={nextPage}
+              />
             </div>
           </div>
         </div>
       </div>
-      <div className={modal ? "modal show" : "modal"}>
+      <div className={`modal ${modal && "show"}`}>
         <div className="modal-dialog">
           <div className="modal-content">
             <button
@@ -162,6 +183,7 @@ const FlashcardContent = () => {
                         onChange={(event) => {
                           setTitleFlashcard(event.target.value);
                         }}
+                        value={titleFlashcard}
                       ></input>
                       <p style={{ display: checkTitle ? "block" : "none" }}>
                         *Tiêu đề không được trống!!
@@ -170,7 +192,18 @@ const FlashcardContent = () => {
                   </div>
                   <div className="form-group">
                     <label className="label">Mô tả</label>
-                    <textarea className="flashcard-modal-desc form-control"></textarea>
+                    <textarea
+                      className="flashcard-modal-desc form-control"
+                      onChange={(event) => {
+                        setDescFlashcard(event.target.value);
+                      }}
+                      value={descFlashcard}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          submitModal(event);
+                        }
+                      }}
+                    ></textarea>
                   </div>
                   <div className="form-group save-btn-modal">
                     <button

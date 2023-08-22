@@ -1,25 +1,24 @@
-import axios from "axios";
-import { API_FLASHCARDS_URL } from "../http/paths";
-import { getLocalToken } from "../utils/apiUtils";
 import instance from "./api";
 
-const flashcard = axios.create({
-  baseURL: API_FLASHCARDS_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-const getToken = getLocalToken();
-
-export const getAllFlashcardsByUser = async () => {
-  flashcard.defaults.headers["Authorization"] = `Bearer ${getToken}`;
-  const response = await instance.get("/flashcards/all");
-  return response.data;
+export const getAllFlashcardsByUser = async (page) => {
+  const response = await instance.get(`/flashcards/all/${page}`);
+  return response?.data;
 };
 
 export const getCardDetail = async (id) => {
-  flashcard.defaults.headers["Authorization"] = `Bearer ${getToken}`;
   const response = await instance.get(`/flashcards/lists/${id}`);
-  return response.data;
+  return response?.data;
+};
+
+export const addFlashcard = async (flashcard) => {
+  const response = await instance.post(`/flashcards/add-flashcard`, flashcard);
+  return response?.data;
+};
+
+export const editFlashcard = async (id, data) => {
+  await instance.put(`/flashcards/edit/${id}`, data);
+};
+
+export const deleteFlashcard = async (id) => {
+  await instance.delete(`/flashcards/delete/${id}`);
 };

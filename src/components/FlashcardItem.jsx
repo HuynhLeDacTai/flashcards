@@ -2,13 +2,16 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { setCurrentFlashcard } from "../store/actions/authActions";
 import { useDispatch } from "react-redux";
+import { useUserInfo } from "../utils/apiUtils";
 
 const FlashcardItem = (props) => {
   const dispatch = useDispatch();
+  const userName = useUserInfo();
 
   const currentFlashcard = {
     id: props.id,
     title: props.title,
+    desc: props.desc,
     user: props.user,
     amount: props.amount,
   };
@@ -44,7 +47,9 @@ const FlashcardItem = (props) => {
                 </div>
               </div>
               <div className="item-user">
-                <span className="item-user-avatar">{props.user.charAt(0)}</span>
+                <span className="item-user-avatar">
+                  {userName ? userName.name.charAt(0) : null}
+                </span>
                 <span className="item-user-username">{props.user}</span>
               </div>
             </div>

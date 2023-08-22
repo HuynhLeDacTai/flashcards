@@ -18,10 +18,14 @@ import { decodeJwtToken, getLocalToken, useIsLogin } from "./utils/apiUtils";
 import { setIsLogin } from "./store/actions/authActions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import Review from "./pages/Review";
+import { addMulQuestion, addQuestion } from "./api/questionApi";
+import { parseDataQuestion } from "./mockData/dataQuestion";
+import DetailExam from "./pages/DetailExam";
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
+  useEffect(async () => {
     const access_token = localStorage.getItem("access_token");
     if (access_token) {
       dispatch(setIsLogin(access_token, decodeJwtToken(access_token)));
@@ -54,9 +58,30 @@ function App() {
               <Redirect to="/login" />
             )}
           </Route>
+          <Route path="/online-exam/test/:id" exact>
+            {getLocalToken() !== "" || isLogin ? (
+              <DetailExam />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
           <Route path="/flashcards" exact>
             {getLocalToken() !== "" || isLogin ? (
               <Flashcard />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/flashcard/review/:id" exact>
+            {getLocalToken() !== "" || isLogin ? (
+              <Review mode={"normal"} />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/flashcard/review/random/:id" exact>
+            {getLocalToken() !== "" || isLogin ? (
+              <Review mode={"random"} />
             ) : (
               <Redirect to="/login" />
             )}
@@ -86,6 +111,14 @@ function App() {
       </Router>
     </>
   );
+  // return (
+  //   <Router>
+  //     <Navbar />
+  //     <Switch>
+  //       <Routes />
+  //     </Switch>
+  //   </Router>
+  // );
 }
 
 export default App;

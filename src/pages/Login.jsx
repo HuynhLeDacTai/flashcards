@@ -30,6 +30,12 @@ const Login = () => {
       }
     }
   };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      submitFormLogin();
+    }
+  };
   return (
     <div className="site-content-wrapper">
       <div className="content-wrapper">
@@ -96,6 +102,7 @@ const Login = () => {
                         onChange={(event) => {
                           setPassword(event.target.value);
                         }}
+                        onKeyDown={handleKeyPress}
                       ></input>
                       <p
                         style={{

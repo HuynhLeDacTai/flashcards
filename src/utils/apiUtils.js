@@ -27,7 +27,6 @@ export const decodeJwtToken = (access_token) => {
 
 export const getLocalToken = () => {
   const token = localStorage.getItem("access_token");
-  console.log("getLocalToken >>>>  ", token);
   return token !== null ? token : "";
 };
 
@@ -42,4 +41,9 @@ export const setLocalToken = (access_token) => {
 
 export const setLocalRefreshToken = (refresh_token) => {
   localStorage.setItem("refresh_token", refresh_token);
+};
+
+export const getCurrentFlashcard = () => {
+  const storedFlashcard = localStorage.getItem("currentFlashcard");
+  return JSON.parse(storedFlashcard);
 };
