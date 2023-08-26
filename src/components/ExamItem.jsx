@@ -1,9 +1,21 @@
 import React from "react";
+import { setCurrentTest } from "../utils/apiUtils";
 
 const ExamItem = (props) => {
   const { exam } = props;
-  const handleClickDetail = () => {};
-  console.log(exam);
+
+  const handleClickDetail = () => {
+    const currentExam = {
+      id: exam.id,
+      name: exam.name,
+      type: exam.type,
+      timing: exam.timing,
+      access: exam.access,
+      amountOfQuestion: exam.amountOfQuestion,
+    };
+    console.log(currentExam);
+    setCurrentTest(JSON.stringify(currentExam));
+  };
   return (
     <>
       <div className="testitem-container">
@@ -30,13 +42,14 @@ const ExamItem = (props) => {
             </div>
             <br />
             <div className="testitem-start-test">
-              <a
+              {/* <a
                 href={`/online-exam/test/${exam.id}`}
                 className="dark-test"
-              ></a>
+              ></a> */}
               <a
                 href={`/online-exam/test/${exam.id}`}
                 className="btn btn-block btn-outline-primary"
+                onClick={() => handleClickDetail()}
               >
                 Chi tiết
               </a>

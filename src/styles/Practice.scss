@@ -1,0 +1,52 @@
+.test-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.test-content {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  min-width: 0;
+}
+
+.test-content {
+  position: relative;
+}
+
+.question-number strong {
+  border-radius: 50%;
+  background-color: #e8f2ff;
+  color: #35509a;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 15px;
+  text-align: center;
+  display: inline-block;
+  transform: translateY(-16%);
+}
+
+.form-check {
+  position: relative;
+  display: block;
+  padding-left: 1.25rem;
+}
+
+.custom-control {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: 1.45rem;
+  padding-left: 1.5rem;
+  color-adjust: exact;
+}
+
+.question-text {
+  margin-bottom: 0.5rem;
+}
+
+.form-check-input {
+  position: absolute;
+  margin-top: 0.3rem;
+  margin-left: -1.25rem;
+}

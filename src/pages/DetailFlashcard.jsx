@@ -23,7 +23,6 @@ const DetailFlashcard = () => {
   const [page, setPage] = useState([]);
   const [dataCards, setDataCards] = useState([]);
   const [checkTitle, setCheckTitle] = useState(false);
-  const [checkDesc, setCheckDesc] = useState(false);
   const [modal, setModal] = useState({
     open: false,
     type: "",
@@ -65,7 +64,7 @@ const DetailFlashcard = () => {
         });
     };
     getDataCardDetail(id);
-  }, []);
+  }, [id]);
 
   const showModal = (event, type) => {
     event.preventDefault();

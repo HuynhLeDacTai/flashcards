@@ -30,6 +30,11 @@ export const getLocalToken = () => {
   return token !== null ? token : "";
 };
 
+export const getUserInfo = () => {
+  const user = localStorage.getItem("decodedToken");
+  return user !== null ? user : "";
+};
+
 export const getLocalRefreshToken = () => {
   const token = localStorage.getItem("refresh_token");
   return token !== null ? token : "";
@@ -46,4 +51,13 @@ export const setLocalRefreshToken = (refresh_token) => {
 export const getCurrentFlashcard = () => {
   const storedFlashcard = localStorage.getItem("currentFlashcard");
   return JSON.parse(storedFlashcard);
+};
+
+export const setCurrentTest = (test) => {
+  localStorage.setItem("test", test);
+};
+
+export const getCurrentTest = () => {
+  const test = localStorage.getItem("test");
+  return JSON.parse(test);
 };

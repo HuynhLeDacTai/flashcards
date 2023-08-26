@@ -7,8 +7,8 @@ import { authenticate } from "../api/auth";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("anna@gmail.com");
+  const [password, setPassword] = useState("123");
   const [checkEmail, setCheckEmail] = useState(false);
   const [checkPassword, setCheckPassword] = useState(false);
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const Login = () => {
                     <label className="label">Email</label>
                     <div>
                       <input
-                        type="text"
+                        type="email"
                         className={
                           checkEmail
                             ? "form-control blank-noti"

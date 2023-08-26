@@ -4,19 +4,26 @@ import ExamList from "./../components/ExamList";
 import { useEffect } from "react";
 import { getAllTest } from "../api/testApi";
 import { useState } from "react";
+import UserInfoBox from "../components/UserInfoBox";
+import { getCurrentFlashcard, getUserInfo } from "../utils/apiUtils";
 
 const MyOnlineExams = () => {
   const [listTests, setListTests] = useState([]);
-  useEffect(async () => {
-    const response = await getAllTest();
-    if (response && response.data) {
-      setListTests(response.data);
-      console.log(response.data);
-    }
+  const userInfo = getUserInfo();
+  useEffect(() => {
+    const getAll = async () => {
+      const response = await getAllTest();
+      if (response && response.data) {
+        setListTests(response.data);
+        console.log(response.data);
+      }
+    };
+
+    getAll();
   }, []);
   return (
     <>
-      <div className="site-wrapper">
+      <div className="site-wrapper" style={{ paddingTop: "0" }}>
         <div className="site-content-wrapper">
           <div className="content-header">
             <div className="container">
@@ -55,40 +62,7 @@ const MyOnlineExams = () => {
                   <br />
                 </div>
                 <div className="right-content">
-                  <div className="user-target-info-box">
-                    <div className="user-target-user">
-                      <div className="">
-                        <span className="acount-profile-img">
-                          <img src="/images/user_icon.png" alt="" />
-                        </span>
-                      </div>
-                      <div
-                        className="user-name-text"
-                        style={{ textAlign: "center" }}
-                      >
-                        anna
-                      </div>
-                    </div>
-                    <div className="divider sm"></div>
-                    <div className="user-target-info">
-                      <p className="user-target-info">
-                        <i>
-                          Bạn chưa tạo mục tiêu cho quá trình luyện thi của
-                          mình. <a> Tạo ngay</a>
-                        </i>
-                      </p>
-                      <div className="mt-3">
-                        <a
-                          href=""
-                          className="btn btn-sm btn-block btn-round btn-sky"
-                          style={{ fontWeight: "500" }}
-                        >
-                          <span className="fa-solid fa-chart-line mr-1"></span>
-                          Thống kê kết quả
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                  <UserInfoBox name={userInfo.name} />
                 </div>
               </div>
               <ul className="nav nav-tabs">
