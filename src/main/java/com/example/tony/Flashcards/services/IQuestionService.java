@@ -10,7 +10,11 @@ public interface IQuestionService {
 
     List<Question> getAll();
 
+    List<Question> getQuestionsByTestId(Long testId);
+
     Question add(Question question);
 
     Question addMultiple(List<Question> questions);
+
+
 }

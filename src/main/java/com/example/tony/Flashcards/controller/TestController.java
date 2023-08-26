@@ -1,6 +1,7 @@
 package com.example.tony.Flashcards.controller;
 
 import com.example.tony.Flashcards.dtos.ResponseObject;
+import com.example.tony.Flashcards.services.impl.QuestionServiceImpl;
 import com.example.tony.Flashcards.services.impl.TestServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,19 @@ public class TestController {
     @Autowired
     TestServiceImpl testService;
 
+    @Autowired
+    QuestionServiceImpl questionService;
+
     @GetMapping("/all")
     public ResponseEntity<ResponseObject> getAllTest() {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("200", "Get data successfully", testService.getAll()));
+
+    }
+
+    @GetMapping("/all/{id}")
+    public ResponseEntity<ResponseObject> getAllQuestion(@PathVariable Long id) {
+        System.out.println(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("200", "Get data successfully", questionService.getQuestionsByTestId(id)));
 
     }
 

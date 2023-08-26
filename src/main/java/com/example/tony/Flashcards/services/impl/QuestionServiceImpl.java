@@ -19,6 +19,11 @@ public class QuestionServiceImpl implements IQuestionService {
     }
 
     @Override
+    public List<Question> getQuestionsByTestId(Long testId) {
+        return questionRepository.getQuestions(testId);
+    }
+
+    @Override
     public Question add(Question question) {
         return questionRepository.save(question);
     }
