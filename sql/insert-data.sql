@@ -15,7 +15,7 @@ VALUE ("Từ điển Tiếng Pháp", "Tiếng Pháp cơ bản", "52"),
 ("Từ điển Tiếng Trung", "Tiếng Pháp nâng cao", "53");
 
 
-INSERT INTO `card`(`NAME`, `DEFINATION`, FLASHCARD_ID)
+INSERT INTO `card`(`NAME`, `DEFINITION`, FLASHCARD_ID)
 VALUE ("Bonjour", "Xin chào", "2"),
 ("Bonsoir", "Chào buổi tối", "2"),
 ("Au revoir", "Tạm biệt", "2"),

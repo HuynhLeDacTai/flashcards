@@ -1,7 +1,6 @@
 package com.example.tony.Flashcards.services.impl;
 
 import com.example.tony.Flashcards.models.Card;
-import com.example.tony.Flashcards.models.Flashcard;
 import com.example.tony.Flashcards.repositories.CardRepository;
 import com.example.tony.Flashcards.services.ICardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class CardServiceImpl implements ICardService {
         if (oldCardOptional.isPresent()) {
             Card oldCard = oldCardOptional.get();
             oldCard.setName(oldCard.getName());
-            oldCard.setDefination(newCard.getDefination());
+            oldCard.setDefinition(newCard.getDefinition());
             return cardRepository.save(oldCard);
         } else {
             return null;

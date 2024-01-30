@@ -21,8 +21,8 @@ public class Card {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "defination")
-    private String defination;
+    @Column(name = "definition")
+    private String definition;
 
     @Column(name = "flashcard_id")
     private Long flashcardId;
