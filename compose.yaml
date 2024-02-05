@@ -14,12 +14,12 @@ services:
       retries: 10
     networks:
       - microservices-network
-
+    volumes:
+      - mysql-data:/var/lib/mysql
 
   spring-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: huynhledactai/flashcard-app
+    container_name: flashcard-container
     depends_on:
       mysql:
         condition: service_healthy
@@ -35,3 +35,6 @@ services:
 networks:
   microservices-network:
     driver: bridge
+
+volumes:
+  mysql-data:
